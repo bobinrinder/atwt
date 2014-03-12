@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* Custom CSS */
+.gmap3{
+        margin: none;
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+      #panTo{
+        text-align:center;
+		position:absolute;
+		bottom: 40px;
+		left: 5%;
+		width: 90%;		
+      }
+	  #header{
+		position:absolute;
+		top: 30px;
+		left: 18%;
+		width: 64%;
+		text-align: center;  
+	  }
+	  #header-title{
+		  font-size: 64px;
+		  font-weight: bold;
+		  color: white;
+		  margin: 10px;
+		  padding: 0px 10px 0px 10px;
+		  background: url('./../img/slider-bg.png') repeat scroll left top transparent;
+	  }
+	  #update-title{
+          color: white;
+		  padding: 5px;
+		  font-style: italic;
+		  background: url('./../img/slider-bg.png') repeat scroll left top transparent;		  
+	  }
+	  #languages{
+		position:absolute;
+		top: 30px;
+		left: 96%;
+		width: 4%;
+		text-align: left;  
+	  }
+	  #valid{
+		position:absolute;
+		bottom: 35px;
+		left: 94%;
+		width: 4%;
+		text-align: left;  
+	  }
+	  #languages a{
+		  color: black;
+	  }
+	  h3 {
+		text-align:center;
+		padding: 0px;
+		margin: 0px;  
+	  }
+	  .country{
+		  font-style: italic;
+		  text-align: center;
+		  width: 100%;
+		  margin-top: 0px;
+	  }
+	  .centerme{
+		  text-align: center;
+	  }
+	  .inlineme{
+		  display: inline;
+	  }
+	  .panLink{
+		  font-weight: bold;
+		  font-size: 14px;
+		  color: white;
+		  background: url('./../img/slider-bg.png') repeat scroll left top transparent;
+		  padding: 3px 0px 3px 0px;
+	  }
+	  #infoOverlay{
+		  border: none;
+		  background: url('./../img/slider-bg.png') repeat scroll left top transparent;
+		  text-align:left;
+		  border-radius: 1em;
+		  padding: 5px;
+		  color: white;
+		  height: 120px;
+		  width: 180px;
+	  }
