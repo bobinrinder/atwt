@@ -1,7 +1,7 @@
 atwt
 ====
 
-Around the World Wordpress Them
+Around the World Wordpress Theme
 
 Version 1.0.1
 
