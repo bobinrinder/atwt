@@ -35,14 +35,14 @@
   // Let's get the data from PHP to JS first... :)
 
   var posts = [
-  <?php
-  for ($i = 0; $i < count($post_array); $i++) {
-    ?>
-    {post_id: <?php echo $post_array[$i][0]; ?>, city: "<?php echo $post_array[$i][1]; ?>", country: "<?php echo $post_array[$i][2]; ?>", longitude: <?php echo $post_array[$i][3]; ?>, latitude: <?php echo $post_array[$i][4]; ?>, arrival_date: <?php echo $post_array[$i][5]; ?>, departure_date: <?php echo $post_array[$i][6]; ?>, accomodation_name: "<?php echo $post_array[$i][7]; ?>", accomodation_link: "<?php echo $post_array[$i][8]; ?>", post_link: "<?php echo $post_array[$i][9]; ?>", position: new google.maps.LatLng(<?php echo $post_array[$i][3]; ?>, <?php echo $post_array[$i][4]; ?>)},
     <?php
-  }
-  ?>
-  ];
+    for ($i = 0; $i < count($post_array); $i++) {
+      ?>
+      {post_id: <?php echo $post_array[$i][0]; ?>, city: "<?php echo $post_array[$i][1]; ?>", country: "<?php echo $post_array[$i][2]; ?>", longitude: <?php echo $post_array[$i][3]; ?>, latitude: <?php echo $post_array[$i][4]; ?>, arrival_date: <?php echo $post_array[$i][5]; ?>, departure_date: <?php echo $post_array[$i][6]; ?>, accomodation_name: "<?php echo $post_array[$i][7]; ?>", accomodation_link: "<?php echo $post_array[$i][8]; ?>", post_link: "<?php echo $post_array[$i][9]; ?>", position: new google.maps.LatLng(<?php echo $post_array[$i][3]; ?>, <?php echo $post_array[$i][4]; ?>)},
+    <?php
+    }
+    ?>
+   ];
 
   var flightPlanCoordinates = [
   <?php
@@ -53,6 +53,7 @@
   }
   ?>
   ];
+
   var flightPath = new google.maps.Polyline({
     path: flightPlanCoordinates,
     geodesic: false,
@@ -62,6 +63,10 @@
   });
 
   var zoomlevel = 2;
+
+  var panPressed = false;
+
+  var iCurrentPost = posts.length - 1;
 
   var map;
 
@@ -77,8 +82,7 @@
    ,zIndex: null
    ,closeBoxURL: ""
    ,boxStyle: { 
-     opacity: 0.75
-     ,width: "280px"
+     width: "280px"
    }
    ,infoBoxClearance: new google.maps.Size(1, 1)
    ,isHidden: false
@@ -89,10 +93,12 @@
 
  var ib = new InfoBox(myOptions);
 
+ var marker, i;
+
  function initialize() {
   var mapOptions = {
     zoom: 2,
-    center: posts[0][position]
+    center: posts[0].position
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -114,7 +120,7 @@
     } 
   });
 
-  var marker, i;
+  
 
   for (i = 0; i < posts.length; i++) {  
     marker = new google.maps.Marker({
@@ -125,6 +131,10 @@
     google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
       return function() {
 
+        if (panPressed === true) {
+          i = iCurrentPost;
+        }
+
         if (boxText.innerHTML !== posts[i].country) {
           if (ib) {
             ib.close(); 
@@ -134,11 +144,12 @@
             boxText.innerHTML = "<h3>"+posts[i].city+"</h3><h5 class='country'>"+posts[i].country+"</h5><h5 class='centerme'><strong class='inlineme'>Departure: </strong>"+posts[i].arrival_date+"</h5>";
           }
           else {
-            boxText.innerHTML = "<h3>"+posts[i].city+"</h3><h5 class='country'>"+posts[i].country+"</h5><h5 class='centerme'><strong>"+posts[i].arrival_date+"-"+posts[i].departure_date+"</strong></h5><div class='centerme'><a class='btn btn-primary btn-sm' href='"+posts[i].post_link+"' target='_self' class='centerme'>Post</a>&nbsp;&nbsp;&nbsp;<a class='btn btn-primary btn-sm' href='"+posts[i].accomodation_link+"' target='_blank' class='centerme'>Accomodation</a></div>";
+            boxText.innerHTML = "<h3>"+posts[i].city+"</h3><h5 class='country'>"+posts[i].country+"</h5><h5 class='centerme'><strong>"+posts[i].arrival_date+" to "+posts[i].departure_date+"</strong></h5><div class='centerme'><a class='btn btn-primary btn-sm' href='"+posts[i].post_link+"' target='_self' class='centerme'>Post</a>&nbsp;&nbsp;&nbsp;<a class='btn btn-primary btn-sm' href='"+posts[i].accomodation_link+"' target='_blank' class='centerme'>Accomodation</a></div>";
           }
           ib = new InfoBox(myOptions);
           ib.open(map, marker);
         }
+        panPressed = false;
       }
     })(marker, i));
 
@@ -151,11 +162,59 @@ google.maps.event.addListener(marker, 'click', (function(marker, i) {
 }
 }
 
+
+
+function drop() {
+  for (var i = 0; i < neighborhoods.length; i++) {
+    setTimeout(function() {
+      addMarker();  
+    }, i * 200);
+  }
+}
+
+function addMarker() {
+  markers.push(new google.maps.Marker({
+    position: neighborhoods[iterator],
+    map: map,
+    draggable: false,
+    animation: google.maps.Animation.DROP
+  }));
+  iterator++;
+}
+
 function toggleRouteVisibility() {
   flightPath.getVisible() ? flightPath.setVisible(false) : flightPath.setVisible(true);
 }
 
+function panToNextPost() {
+  if (iCurrentPost === 0) {
+    iCurrentPost = posts.length - 1;
+  }
+  else {
+    iCurrentPost--;
+  }
+  map.panTo(flightPlanCoordinates[iCurrentPost]);
+  panPressed = true;
+  marker = flightPlanCoordinates[iCurrentPost];
+  google.maps.event.trigger(marker, 'mouseover', iCurrentPost);
+}
+
+function panToPreviousPost() {
+  if (iCurrentPost === posts.length - 1) {
+    iCurrentPost = 0;
+  }
+  else {
+    iCurrentPost++;
+  }
+  map.panTo(flightPlanCoordinates[iCurrentPost]);
+  panPressed = true;
+  marker = flightPlanCoordinates[iCurrentPost];
+  google.maps.event.trigger(marker, 'mouseover', iCurrentPost);
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
 
 </script>  
 
@@ -172,7 +231,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <div id="map-canvas"></div>
   
   <!-- This is where the pan links will appear -->
-  <div id="panTo"></div>
+  <div id="panTo"><input type="button" value="Previous" onClick="panToPreviousPost()">&nbsp;&nbsp;<input type="checkbox" checked="checked" onClick="toggleRouteVisibility()">&nbsp;&nbsp;<input type="button" value="Next" onClick="panToNextPost()"></div>
   
   <!-- This is the header -->
   <div id="header">
@@ -188,7 +247,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     $last_update = substr($temp, 8, 2) . "." . substr($temp, 5, 2) . "." . substr($temp, 0, 4) . " @ " . substr($temp, 11);
   // And finally the echo... :)
     ?>
-    <span id="header-title"><a onClick="toggleRouteVisibility()"><?php bloginfo('name'); ?></a></span><br /><span id="update-title">Last Update: <?php echo $last_update; ?></span>
+    <span id="header-title"><?php bloginfo('name'); ?></span><br /><span id="update-title">Last Update: <?php echo $last_update; ?></span>
   </div>
   
 </body>
