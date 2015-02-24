@@ -106,6 +106,18 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 				'maxlength' => '250',
 			),
+			array (
+				'key' => 'field_52fafa0194c0c',
+				'label' => 'Photo Link',
+				'name' => 'photo_link',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '250',
+			),
 		),
 		'location' => array (
 			array (
