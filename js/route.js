@@ -1,13 +1,12 @@
 // Javascript module wrapping the app
 var route = (function () {
   
-  var map;
+  var map, flightPath, i;
   var locations = [];
   var current = null;
-  var flightPath;
 
   // Initialize Stuff
-  var initialize = function(posts){
+  var initialize = function (posts) {
 
     // Prepare data
     for (i = 0; i < posts.length; i++) {
@@ -25,7 +24,6 @@ var route = (function () {
       if (a.arrivalDateSort < b.arrivalDateSort) {
         return 1;
       }
-      // a must be equal to b
       return 0;
     });
 
@@ -46,9 +44,10 @@ var route = (function () {
       }
     });
 
-    // Set up the markers
+    // Set up the markers and add the index to the object after sorting
     for (i = 0; i < locations.length; i++) {
       locations[i].addToMap();
+      locations[i].ind = i;
     }
 
     // Draw Flight Path
@@ -99,48 +98,30 @@ var route = (function () {
     }
   };
 
+  // Next-Button 
   var next = function(){
-
     current.closeInfoBox();
-
     if(current === locations[0]) {
       current = locations[locations.length-1];
     }
     else {
-      var currentIndex;
-      for (i = 0; i < locations.length; i++) {
-        if (locations[i].post_link === current.post_link) {
-          currentIndex = i;
-        }
-      }
-      current = locations[currentIndex-1];
+      current = locations[current.ind-1];
     }
-
     current.openInfoBox();
     map.panTo(current.position);
-  
   };
 
+  // Previous-Button 
   var prev = function(){
-
     current.closeInfoBox();
-
     if(current === locations[locations.length-1]) {      
       current = locations[0];
     }
-    else {    
-      var currentIndex;
-      for (i = 0; i < locations.length; i++) {
-        if (locations[i].post_link === current.post_link) {
-          currentIndex = i;
-        }
-      } 
-      current = locations[currentIndex+1];
+    else {   
+      current = locations[current.ind+1];
     }
-
     current.openInfoBox();
     map.panTo(current.position);
-  
   };
 
   // Location object constructor:
