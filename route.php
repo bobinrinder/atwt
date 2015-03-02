@@ -96,7 +96,7 @@
 
   <!-- This is the stats box -->
   <div id="stats" class="hidden-xs hidden-sm">
-    <span id="stats-title" class="hidden-xs hidden-sm"></span>
+    <!-- Dynamic Content -->
   </div>
   
 </body>

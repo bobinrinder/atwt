@@ -20,7 +20,10 @@
 		right: 40px;
 		padding: 5px;
 		text-align: left;  
-		background: url('./../img/slider-bg.png') repeat scroll left top transparent;		
+		background: url('./../img/slider-bg.png') repeat scroll left top transparent;
+		color: white;
+		padding: 5px;
+		font-size: 1em;		
 	  }
 	  #header-mobile{
 		position:absolute;
@@ -43,11 +46,6 @@
 		  font-style: italic;
 		  font-size: 1em;
 		  background: url('./../img/slider-bg.png') repeat scroll left top transparent;		  
-	  }
-	  #stats-title{
-          color: white;
-		  padding: 5px;
-		  font-size: 1em;		    
 	  }
 	  #header-title-mobile{
 		  font-size: 1.5em;

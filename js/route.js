@@ -86,7 +86,7 @@ var route = (function () {
     }
 
     // Insert content in stats box
-    document.getElementById("stats-title").innerHTML = "<strong>Distance: </strong>" + getTotalTravelDistance() + "km<br /><strong>Locations: </strong>" + cities.length + "<br /><strong>Countries: </strong>" + countries.length;
+    document.getElementById("stats").innerHTML = "<strong>Distance: </strong>" + getTotalTravelDistance() + "km<br /><strong>Locations: </strong>" + cities.length + "<br /><strong>Countries: </strong>" + countries.length;
   };
 
   // Toggle Route
