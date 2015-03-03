@@ -3,10 +3,16 @@ atwt
 
 Around the World Wordpress Theme
 
-Version 1.2
+Version 1.2 (released 03/03/2015)
 
-More information: http://robinbinder.de/atwt
+More information: http://robinbinder.com/atwt
 
-FAQ: http://robinbinder.de/atwt/faq.html
+Demo: http://robinbinder.com/atwt/demo
 
-Changelog: http://robinbinder.de/atwt/changelog.html
+FAQ: http://robinbinder.com/atwt/faq.html
+
+Changelog: http://robinbinder.com/atwt/changelog.html
+
+License: GNU General Public License v2 or later
+
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
