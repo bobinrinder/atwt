@@ -1,9 +1,10 @@
 <?php
+  // Starts the actual blog main page (preparation for future template-extension already included)
   if (empty($_GET["route"]) or $_GET["route"]=="true") {
-	include("route.php");  
+	  include("route.php");  
   }
   else {
-	  
+	  // This is the future template-extension mentioned above, this part is not in use yet, probably in 1.3! ;)
     get_header(); ?>
 
       <div class="row">

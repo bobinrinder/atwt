@@ -21,11 +21,11 @@
   global $query_string;
   query_posts ('posts_per_page=-1');
   if (have_posts()) : while (have_posts()) : the_post();
-  $temp = get_field('longitude') . get_field('latitude');
-  // Only keep the posts with GPS data...
-  if ($temp !== "") :
-    $post_array[] = array(get_the_ID(),get_field('city'),get_field('country'),get_field('longitude'),get_field('latitude'),get_field('arrival_date'),get_field('departure_date'),get_field('accomodation_name'),get_field('accomodation_link'), get_permalink(get_the_ID()),get_field('photo_link'));
-  endif;
+    $temp = get_field('longitude') . get_field('latitude');
+    // Only keep the posts with GPS data...
+    if ($temp !== "") :
+      $post_array[] = array(get_the_ID(),get_field('city'),get_field('country'),get_field('longitude'),get_field('latitude'),get_field('arrival_date'),get_field('departure_date'),get_field('accomodation_name'),get_field('accomodation_link'), get_permalink(get_the_ID()),get_field('photo_link'));
+    endif;
   endwhile; endif;
   ?>
 
@@ -35,18 +35,16 @@
 
   <script>
     (function () {
-
-  // Let's get the data from PHP to JS first... :)
-
-  var posts = [
-    <?php
-    for ($i = 0; $i < count($post_array); $i++) {
-      ?>
-      {post_id: <?php echo $post_array[$i][0]; ?>, city: "<?php echo $post_array[$i][1]; ?>", country: "<?php echo $post_array[$i][2]; ?>", latitude: <?php echo $post_array[$i][3]; ?>, longitude: <?php echo $post_array[$i][4]; ?>, arrival_date: "<?php echo substr($post_array[$i][5],0,2).'.'.substr($post_array[$i][5],2,2).'.'.substr($post_array[$i][5],4,4); ?>", departure_date: "<?php echo substr($post_array[$i][6],0,2).'.'.substr($post_array[$i][6],2,2).'.'.substr($post_array[$i][6],4,4); ?>", accomodation_name: "<?php echo $post_array[$i][7]; ?>", accomodation_link: "<?php echo $post_array[$i][8]; ?>", post_link: "<?php echo $post_array[$i][9]; ?>", photo_link: "<?php echo $post_array[$i][10]; ?>"},
-    <?php
-    }
-    ?>
-   ];
+      // Let's get the data from PHP to JS first... :)
+      var posts = [
+        <?php
+        for ($i = 0; $i < count($post_array); $i++) {
+          ?>
+          {post_id: <?php echo $post_array[$i][0]; ?>, city: "<?php echo $post_array[$i][1]; ?>", country: "<?php echo $post_array[$i][2]; ?>", latitude: <?php echo $post_array[$i][3]; ?>, longitude: <?php echo $post_array[$i][4]; ?>, arrival_date: "<?php echo substr($post_array[$i][5],0,2).'.'.substr($post_array[$i][5],2,2).'.'.substr($post_array[$i][5],4,4); ?>", departure_date: "<?php echo substr($post_array[$i][6],0,2).'.'.substr($post_array[$i][6],2,2).'.'.substr($post_array[$i][6],4,4); ?>", accomodation_name: "<?php echo $post_array[$i][7]; ?>", accomodation_link: "<?php echo $post_array[$i][8]; ?>", post_link: "<?php echo $post_array[$i][9]; ?>", photo_link: "<?php echo $post_array[$i][10]; ?>"},
+        <?php
+        }
+        ?>
+       ];
 
       // Initialize App
       google.maps.event.addDomListener(window, 'load', function(){
@@ -56,10 +54,10 @@
     }());
 
   </script>
-<link href="<?php echo get_template_directory_uri(); ?>/bs/css/bootstrap.min.css" rel="stylesheet" />
-<link href="<?php echo get_template_directory_uri(); ?>/css/custom-styles.css" rel="stylesheet" />
+  <link href="<?php echo get_template_directory_uri(); ?>/bs/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="<?php echo get_template_directory_uri(); ?>/css/custom-styles.css" rel="stylesheet" />
 
-<title><?php bloginfo('name'); ?></title> 
+  <title><?php bloginfo('name'); ?></title> 
 
 </head>
 

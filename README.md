@@ -3,10 +3,10 @@ atwt
 
 Around the World Wordpress Theme
 
-Version 1.2b
+Version 1.2
 
-More information: http://bobinrinder.net/atwt
+More information: http://robinbinder.de/atwt
 
-FAQ: http://bobinrinder.net/atwt/faq.html
+FAQ: http://robinbinder.de/atwt/faq.html
 
-Changelog: http://bobinrinder.net/atwt/changelog.html
+Changelog: http://robinbinder.de/atwt/changelog.html

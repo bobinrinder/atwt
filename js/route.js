@@ -101,6 +101,7 @@ var route = (function () {
   // Next-Button 
   var next = function(){
     current.closeInfoBox();
+    // If newest location is selected, start with the oldest one
     if(current === locations[0]) {
       current = locations[locations.length-1];
     }
@@ -114,7 +115,8 @@ var route = (function () {
   // Previous-Button 
   var prev = function(){
     current.closeInfoBox();
-    if(current === locations[locations.length-1]) {      
+    // If oldest location is selected, start with newest one
+    if(current === locations[locations.length-1]) {     
       current = locations[0];
     }
     else {   
@@ -185,8 +187,9 @@ var route = (function () {
       var boxText = document.createElement("div");
       boxText.style.cssText = "border: none; background: url('./wp-content/themes/atwt/img/slider-bg.png') repeat scroll left top transparent; text-align:left; border-radius: 1em; padding: 5px; color: white; height: 120px; width: 180px";
       
-      // Show a different html for first location:
+      // Show a different html for the very first location:
       if(this.departureDate !== locations[locations.length-1].departureDate){
+        // Add some vars for the cases that no links to photos or accomodations is given to disable the buttons
         var noPhotoLink = "";
         var noAccomodationLink = "";
         if (this.photo_link === "") { noPhotoLink = " disabled"; }
