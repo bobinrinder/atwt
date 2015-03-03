@@ -5,6 +5,8 @@ Around the World Wordpress Theme
 
 Version 1.2 (released 03/03/2015)
 
+Download: http://robinbinder.com/atwt/atwt.zip
+
 More information: http://robinbinder.com/atwt
 
 Demo: http://robinbinder.com/atwt/demo
