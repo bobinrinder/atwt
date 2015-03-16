@@ -9,7 +9,7 @@ Download: http://robinbinder.com/atwt/atwt.zip
 
 More information: http://robinbinder.com/atwt
 
-Demo: http://robinbinder.com/atwt/demo
+Demo: http://robinbinder.com/atwt/test
 
 FAQ: http://robinbinder.com/atwt/faq.html
 
