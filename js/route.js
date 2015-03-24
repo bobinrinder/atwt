@@ -9,10 +9,8 @@ var route = (function () {
   // Initialize App
   var initialize = function (posts) {
 
-    // Prepare data
-    for (i = 0; i < posts.length; i++) {
-      
-      // Instanciate new location object
+    // Prepare data by creating Location Objects and adding them to an array
+    for (i = 0; i < posts.length; i++) {    
       var newLocation = new Location(posts[i]);
       locations.push(newLocation);
     }
@@ -249,7 +247,6 @@ var route = (function () {
   // Function that calculates the total travelled distance between all locations
   var getTotalTravelDistance = function() {
     var totalTravelDistance = 0;
-    var i = 0;
     for (i = 0; i < locations.length-1; i++) {
       var p1 = {lat:locations[i].lat,lng:locations[i].lng};
       var p2 = {lat:locations[i+1].lat,lng:locations[i+1].lng};
