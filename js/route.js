@@ -1,11 +1,12 @@
 // Javascript module wrapping the app
 var route = (function () {
   
+  // Basic vars
   var map, flightPath, i;
   var locations = [];
   var current = null;
 
-  // Initialize Stuff
+  // Initialize App
   var initialize = function (posts) {
 
     // Prepare data
@@ -27,6 +28,7 @@ var route = (function () {
       return 0;
     });
 
+    // Debugging Log
     console.log(locations);
 
     // Set up the map
@@ -40,7 +42,6 @@ var route = (function () {
     google.maps.event.addListener(map, "click", function(event) {
       if(current) {
         current.closeInfoBox();
-        // current = null;
       }
     });
 
@@ -89,7 +90,7 @@ var route = (function () {
     document.getElementById("stats").innerHTML = "<strong>Distance: </strong>" + getTotalTravelDistance() + "km<br /><strong>Locations: </strong>" + cities.length + "<br /><strong>Countries: </strong>" + countries.length;
   };
 
-  // Toggle Route
+  // Toggle Route (Flightpath Visibility on/off)
   var toggleRouteVisibility = function() {
     if(flightPath.getVisible()) {
       flightPath.setVisible(false);
@@ -98,7 +99,7 @@ var route = (function () {
     }
   };
 
-  // Next-Button 
+  // Pan to and open next location
   var next = function(){
     current.closeInfoBox();
     // If newest location is selected, start with the oldest one
@@ -112,7 +113,7 @@ var route = (function () {
     map.panTo(current.position);
   };
 
-  // Previous-Button 
+  // Pan to and open previous location 
   var prev = function(){
     current.closeInfoBox();
     // If oldest location is selected, start with newest one
@@ -162,7 +163,7 @@ var route = (function () {
     // Preserve context for event handler:
     var self = this;
 
-    // Event Handler: First close boxes, then open the one
+    // Event Handler: First close current opne box, then open the new one
     google.maps.event.addListener(self.marker, 'mouseover', function() {
       if(current) current.closeInfoBox();
       self.openInfoBox();
@@ -170,7 +171,7 @@ var route = (function () {
       current = self;
     });
 
-    // Event Handler: Pan to Location on Click
+    // Event Handler: Pan to location on click
     google.maps.event.addListener(self.marker, 'click', function() {
       map.panTo(current.position);
     });
@@ -183,7 +184,7 @@ var route = (function () {
     // Only create a new infobox if this location object doesnt have one already
     if(!this.ib){
 
-      // Create HTML
+      // Create HTML and CSS
       var boxText = document.createElement("div");
       boxText.style.cssText = "border: none; background: url('./wp-content/themes/atwt/img/slider-bg.png') repeat scroll left top transparent; text-align:left; border-radius: 1em; padding: 5px; color: white; height: 120px; width: 180px";
       
@@ -231,6 +232,7 @@ var route = (function () {
   };
 
   // Function that calculates the distance between two coordinates in rounded metres via the Haversine formula
+  // Checkout: http://en.wikipedia.org/wiki/Haversine_formula
   var getDistance = function(p1, p2) {
     var rad = function(x) {
       return x * Math.PI / 180;
@@ -244,7 +246,7 @@ var route = (function () {
     return d; // returns the distance in meter
   };
 
-  // Function that calculates the total travelled distance between all locations with GPS-Data
+  // Function that calculates the total travelled distance between all locations
   var getTotalTravelDistance = function() {
     var totalTravelDistance = 0;
     var i = 0;
@@ -257,8 +259,7 @@ var route = (function () {
     return totalTravelDistance;
   };
 
-  // Returning properties to be accessible from outside 
-  // the module (basically an interface)
+  // Returning properties to be accessible from outside the module
   return {
     initialize: initialize,
     toggleRouteVisibility: toggleRouteVisibility,
